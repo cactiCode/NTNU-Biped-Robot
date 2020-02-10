@@ -1,0 +1,44 @@
+	
+
+	########## Oppskrift for bruk av Github ##########
+
+
+	### Når en lager en helt ny git og skal laste den opp ###
+
+		$ git init   /
+		$ git add README.md
+		$ git commit -m "first commit"
+		$ git remote add origin https://github.com/cactiCode/NTNU-Biped-Robot.git
+		$ git push -u origin master
+
+	### Når en skal bruke en git fra Web og endre den ###
+
+		$ git clone "web address"
+		$ git add eks.css		// når en skal legge til en fil i dette registeret)
+		$ git commit -m "comment" 	// her commites endringer (gjøres klar til å laste opp)
+		$ git remote add origin "web adresse til git" ( usikker om en trenger ved clone)
+		$ git push -u origin master	// her pushes endringer til web (krever innlogging )
+
+	### Når en bare skal laste opp en endring i eksempel.txt###
+		$ git add eksempel.txt 	//alltid add for at commit skal plukke oppp
+		$ git commit -m "comment"
+		$ git push -u origin master
+
+	### Laste opp Ny filer til Github ###
+		$ git add eks.css
+		$ git commit -m "comment"
+		$ git push -u origin master
+	
+	## Diverse ###
+
+		$ git config --list --show-origin	// vise alle settings og configurasjoner
+
+		// Første en burde gjøre er å sette opp navn og email ved å :
+		$ git config --global user.name "ola nordmann"
+		$ git config --global user.email nordmann@eks.com
+	
+		$ git config --list		// Vise dine egne Settings : printer ut all info om konto.
+
+		$ git stash			// Stashe vekk kode som ikke skal pushes til "Web" enda
+		$ git stash pop  		// pop den ut av stash)
+
