@@ -1,6 +1,0 @@
-Encoder --------------> 5VDC ; 35mA max ; 3000PPR
-Motor   --------------> 24VDC; 12,5A
-IMU     --------------> 1,9 - 3,6V ; 4,6mA
-Servo   --------------> 4,8V
-
-Foreslått strømforsyning -> 50V Kanal1 ; 4,8V Kanal2
