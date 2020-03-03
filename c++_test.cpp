@@ -52,10 +52,10 @@ int totGjett=0;
     char answer;
     cin>>answer;
 
-    if (answer=='N' || answer=='n'){
+    if (answer='N' || answer='n'){
       enGangTil=0;
     }
-    else if (answer=='Y' || answer=='y'){
+    else if (answer='Y' || answer='y'){
       enGangTil=1;
     }
 
