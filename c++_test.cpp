@@ -26,7 +26,7 @@ while (enGangTil=1){
     while (randNum != guess) {
       if (guess<randNum) {
         cout<<"To low\n";
-        cout<<"What is you guess ";
+        cout<<"What is you guess: ";
         cin>>guess;
         gjettinger++;
       }
