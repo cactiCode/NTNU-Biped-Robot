@@ -53,13 +53,17 @@ int totGjett=0;
     char answer;
     cin>>answer;
 
+    while (answer !='N' && answer!='n' && answer!='Y' && answer!='y') {
+      std::cout << "Please type Y or n: ";
+      cin>>answer;
+    }
+
     if (answer=='y' || answer=='Y'){
       enGangTil=1;
     }
     else {
       enGangTil=0;
     }
-
   }
   int Average=totGjett/antRunder;
   cout<<"Hope you had a nice time playing!\n";
