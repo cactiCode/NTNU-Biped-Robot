@@ -42,12 +42,12 @@ int totGjett=0;
     totGjett=totGjett+gjettinger;
 
     cout<<"That is correct!\n";
-    cout<<"It took you "<<gjettinger<<" tryes to guess right\n";
+    cout<<"It took you "<<gjettinger<<" attempts to guess right\n";
     if (gjettinger<5) {
-      cout<<"You had less than 5 tryes, you did well!\n";
+      cout<<"You had less than 5 attempts, you did well!\n";
     }
     else {
-      cout<<"You had more than 5 tryes, try doing a better job next time!\n";
+      cout<<"You had more than 5 attempts, try doing a better job next time!\n";
     }
     cout<<"Do you want to continue playing? [Y/n]: ";
     char answer;
@@ -67,7 +67,7 @@ int totGjett=0;
   }
   int Average=totGjett/antRunder;
   cout<<"Hope you had a nice time playing!\n";
-  cout<<"Douring " <<antRunder<<" round you palyed, \n";
-  cout<<"your average was "<<Average<<" tryes per round.\n";
+  cout<<"Douring " <<antRunder<<" round you played, \n";
+  cout<<"your average was "<<Average<<" attempts per round.\n";
   cout<<" "<<endl;
 }
