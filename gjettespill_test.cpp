@@ -43,7 +43,7 @@ int totGjett=0;
     totGjett=totGjett+gjettinger;
 
     cout<<"That is correct!\n";
-    cout<<"It took you "<<gjettinger<<" attempts to guess right\n";
+    cout<<"It took you "<<gjettinger<<" attempts to guess right.\n";
     if (gjettinger<5) {
       cout<<"You had less than 5 attempts, you did well!\n";
     }
