@@ -1,3 +1,3 @@
-# IMU C code
+# IMU C/C++ code
 
-Development c code for IMU.
+Development c/c++ code for IMU.
