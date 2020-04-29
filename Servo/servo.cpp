@@ -1,3 +1,7 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+
 class servoControl
 {
 
@@ -100,3 +104,34 @@ public:
         
     }
 };
+
+
+
+int main()
+{
+    int pinN,pinN2;
+    std::cout << "Pin Nr :";
+    std::cin >> pinN;
+    std::cout << std::endl;
+    std::cout << "Pin2 Nr :";
+    std::cin >> pinN2;
+    std::cout << std::endl;;
+    servoControl servoA(pinN); //initalize with pin 19
+    servoA.servoInit();
+    servoControl servoB(pinN2); //initalize with pin 19
+    servoB.servoInit();
+
+    for(int i = 0;i < 5;i++)
+    {
+        servoA.setDutyCycle(820000);
+        servoB.setDutyCycle(820000);
+        std::cout << "trying 82" << std::endl;
+        std::cin.get();
+        servoA.setDutyCycle(1900000);
+        servoB.setDutyCycle(1900000);
+        std::cout << "trying 19" << std::endl;
+        std::cin.get();
+    }
+    std::cout << "end of test !"<< std::endl;
+    return 0;
+}
