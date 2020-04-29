@@ -1,7 +1,3 @@
-#include <iostream>
-#include <fstream>
-#include <string>
-
 class servoControl
 {
 
@@ -23,27 +19,27 @@ private:
         {
             case 13:
                 m_Pinpath = "P8_13_pinmux";
-                m_PinpathNumber = "1";
+                m_PinpathNumber = "7:1";
                 m_pinChip = "pwmchip7";
                 m_pinbool = 1;
                 break;
             case 19:
                 m_Pinpath = "P8_19_pinmux";
-                m_PinpathNumber = "0";
+                m_PinpathNumber = "7:0";
                 m_pinChip = "pwmchip7";
                 m_pinbool = 0;
                 break;
             case 29:
                 m_Pinpath = "P9_29_pinmux";
-                m_PinpathNumber = "0";
+                m_PinpathNumber = "1:1";
                 m_pinChip = "pwmchip1";
-                m_pinbool = 0;
+                m_pinbool = 1;
                 break;
             case 31:
                 m_Pinpath = "P9_31_pinmux";
-                m_PinpathNumber = "1";
+                m_PinpathNumber = "1:0";
                 m_pinChip = "pwmchip1";
-                m_pinbool = 1;
+                m_pinbool = 0;
                 break;
             default:
                 std::cout << "Not an implemented pin"<<std::endl;
@@ -63,7 +59,7 @@ private:
     void enablePWM()
     {
         std::ofstream pwmEnable;
-        pwmEnable.open("/sys/class/pwm/pwm-1:" + m_PinpathNumber + "/enable");
+        pwmEnable.open("/sys/class/pwm/pwm-" + m_PinpathNumber + "/enable");
         pwmEnable << 1;
         pwmEnable.close();
     }
@@ -75,7 +71,7 @@ private:
         PWMexportStream.close();
 
         std::ofstream freqSet;
-        freqSet.open("/sys/class/pwm/pwm-1:" + m_PinpathNumber + "/period");
+        freqSet.open("/sys/class/pwm/pwm-" + m_PinpathNumber + "/period");
         freqSet << frequency;
         freqSet.close();
     }
@@ -90,7 +86,7 @@ public:
     void setDutyCycle(int dutyC)
     {
         std::ofstream DCfile;
-        DCfile.open("/sys/class/pwm/pwm-1:" + m_PinpathNumber + "/duty_cycle");
+        DCfile.open("/sys/class/pwm/pwm-" + m_PinpathNumber + "/duty_cycle");
         DCfile << dutyC;
         DCfile.close();
     }
@@ -104,34 +100,3 @@ public:
         
     }
 };
-
-
-
-int main()
-{
-    int pinN,pinN2;
-    std::cout << "Pin Nr :";
-    std::cin >> pinN;
-    std::cout << std::endl;
-    std::cout << "Pin2 Nr :";
-    std::cin >> pinN2;
-    std::cout << std::endl;;
-    servoControl servoA(pinN); //initalize with pin 19
-    servoA.servoInit();
-    servoControl servoB(pinN2); //initalize with pin 19
-    servoB.servoInit();
-
-    for(int i = 0;i < 5;i++)
-    {
-        servoA.setDutyCycle(820000);
-        servoB.setDutyCycle(820000);
-        std::cout << "trying 82" << std::endl;
-        std::cin.get();
-        servoA.setDutyCycle(1900000);
-        servoB.setDutyCycle(1900000);
-        std::cout << "trying 19" << std::endl;
-        std::cin.get();
-    }
-    std::cout << "end of test !"<< std::endl;
-    return 0;
-}
