@@ -32,7 +32,7 @@ public:
 
   PD_Controller(float, float);
 
-  void getControllValue(float)
+  float getControllValue(float)
 
   void Set_Parameters(float, float);
 
