@@ -54,7 +54,7 @@ void PD_Controller::Set_Setpoint (float set_SetPoint){
 }
 
 
-void PD_Controller::getControllValue(float set_SetPoint,float encoder){
+ float PD_Controller::getControllValue(float set_SetPoint,float encoder){
   float error=setPoint - encoder;
 
   float controlSignal=previous_controlSignal+(Kp(error - previous_error_1))+(Kd*(error-2*previous_error_1+previous_error_2));
@@ -69,7 +69,7 @@ void PD_Controller::getControllValue(float set_SetPoint,float encoder){
 }
 
 void PD_Controller::Update() {
-  float previous_error_2=previous_error_1;
-  float previous_error_1 = error;
-  float previous_controlSignal=controlSignal;
+  double previous_error_2=previous_error_1;
+  double previous_error_1 = error;
+   previous_controlSignal=controlSignal;
 }
