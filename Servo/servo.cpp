@@ -116,9 +116,9 @@ int main()
     std::cout << "Pin2 Nr :";
     std::cin >> pinN2;
     std::cout << std::endl;;
-    servoControl servoA(pinN); //initalize with pin 19
+    servoControl servoA(pinN); //initalize with given pin nr
     servoA.servoInit();
-    servoControl servoB(pinN2); //initalize with pin 19
+    servoControl servoB(pinN2); //initalize with given pin nr
     servoB.servoInit();
 
     for(int i = 0;i < 5;i++)
