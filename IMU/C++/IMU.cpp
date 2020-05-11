@@ -67,8 +67,12 @@ class LSM9DS1
         char config[2] = {0};
         config[0] = reg;
         config[1] = value;
-
-        write(file, config, 2);
+        if(write(file, config, 2) < 0)
+        {
+            printf("Failed to open bus. \n");
+            exit(1);
+        }
+        else
         printf("sucessful init \n");
 
     }
