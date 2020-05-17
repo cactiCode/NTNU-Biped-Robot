@@ -60,12 +60,12 @@ class PD_Controller
   //***************************
   //Primary operating functions
   //***************************
-  void Set_Setpoint (int32 setpoint)
+  void Set_Setpoint (float setpoint)
   {
-    int32 Set_Setpoint = setpoint;
+    float Set_Setpoint = setpoint;
   }
 
-   string getControllValue(int32 setpointValue,int32 encoderPosition)
+   string getControllValue(int setpointValue,int encoderPosition)
    {
      string error = setpointValue - encoderPosition;
      string controlSignal = previous_controlSignal+(KP*(error - previous_error_1))+(KD*(error-2*previous_error_1+previous_error_2));
@@ -89,48 +89,53 @@ class PD_Controller
   }
 };
 
-class Publisher_Subscriber
+
+//********************************************
+//Robot operating system
+//********************************************
+// ROS callback function
+void setpointCall_back(const std_msgs::Int32::ConstPtr& encoderPosition)
 {
-  public:
-    Publisher_Subscriber()
-    {
-      publisherObject = n.advertise<std_msgs::Int32>("controller", 1000);
-      subscriberObject = n.subscribe<std_msgs::Int32>("chatter", 1000, &Publisher_Subscriber::subscriberCallback, this);
-    }
-    void subscriberCallBack (const std_msgs::Int32::Subscribe::ConstPtr& encoderPosition);
+  std_msgs::Int32 encoder //Topic name
+  encoder.data=encoderPosition->data;
+  ROS_INFO("controller_recieves_encoder_data: %d", encoder_msg.data)
+}
 
-  private:
-    ros::Subscriber subscriberObject;
-    ros::Publisher publisherObject;
-    ros::NodeHandle n;
-
-  void subscriberCallback(const std_msgs::Int32::ConstPtr& encoderPosition)
-  {
-    std_msgs::Int32 encoder //Topic name
-    encoder_msg.data=encoderPosition->data;
-    ROS_INFO("controller_recieves_encoder_data: %d", encoder_msg.data);
-  }
-};
 int main(int argc, char** argv)
 {
   PD_Controller myPD (10,1); //Creating an object with KP and KD values
   myPD.SetOutputRange(3,0); //Setting max and min signal values
-  myPD.Set_Setpoint(1000);//Setting setpoint
+  myPD.Set_Setpoint(1000); //Setting setpoint
   //******************************************************************************
+
   //Ros code
   ros::init(argc, argv, "controller_node");
   ROS_INFO("Starting PD controller node");
+  ros::NodeHandle controller_node;
+  while (ros::ok() && ros::Time(0) == ros::Time::now())
+  {
+    ROS_INFO("controller_node is initiated");
+    sleep(1);
+  }
 
-  while(ros::ok()){
+  // Subscribers and publishers
+
+    ros::Subscriber encoder_sub = controller_node.subscribe<std_msgs::Int32>("chatter",1000,encoderCall_back);
+    ros::Publisher controller_pub = controller_node.advertise<std_msgs::Int32>("controller", 1000);
+    ros::Rate loop_rate(100);
+
+  int count = 0;
+  while (ros::ok())
+  {
     myPD.getControllValue(setpoinValue, encoderPosition);
     myPD.Update();
 
-    Publisher_Subscriber SUB_PUB_Object; //Creating object for publisher subscriber class
+
     std_msgs::Int32 message;
     message.data = myPD.getControllValue;
 
-    ros::Rate loop_rate(100);
-    controller_pub.publish(message);  // publish
+
+    controller_pub.publish(message.data);  // publish
     ros::spinOnce();
     loop_rate.sleep();
 
