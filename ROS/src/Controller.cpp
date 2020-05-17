@@ -131,7 +131,7 @@ int main(int argc, char** argv)
 
     ros::Rate loop_rate(100);
     controller_pub.publish(message);  // publish
-    ros::spin();
+    ros::spinOnce();
     loop_rate.sleep();
 
     ++count;
