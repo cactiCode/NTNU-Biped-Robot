@@ -95,7 +95,7 @@ class Publisher_Subscriber
     Publisher_Subscriber()
     {
       publisherObject = n.advertise<std_msgs::Int32>("controller", 1000);
-      subscriberObject = n.subscribe<std_msgs::Int32>("encoder", 1000, &Publisher_Subscriber::subscriberCallback, this);
+      subscriberObject = n.subscribe<std_msgs::Int32>("chatter", 1000, &Publisher_Subscriber::subscriberCallback, this);
     }
     void subscriberCallBack (const std_msgs::Int32::Subscribe::ConstPtr& encoderPosition);
 
