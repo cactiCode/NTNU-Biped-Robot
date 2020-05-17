@@ -98,14 +98,14 @@ class PD_Controller
 void encoderCall_back(const std_msgs::Int32::ConstPtr& encoderPosition)
 {
   std_msgs::Int32 encoder //Topic name
-  encoder.data=encoderPosition->data;
+  encoder=encoderPosition->data;
   ROS_INFO("controller_recieves_encoder_data: %d", encoder_msg.data)
 }
 
 void setpointCall_back(const std_msgs::Int32::ConstPtr& setpointValue)
 {
   std_msgs::Int32 setpoint
-  setpoint.data=setpointValue->data;
+  setpoint=setpointValue->data;
   ROS_INFO("controller_recieves_setpoint_data: %d", setpoint.data)
 }
 
