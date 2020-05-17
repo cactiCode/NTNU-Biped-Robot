@@ -1,4 +1,5 @@
 #include "ros/ros.h"
+#include "std_msgs/String.h"
 #include "std_msgs/Int32.h"
 
 
@@ -101,11 +102,18 @@ void encoderCall_back(const std_msgs::Int32::ConstPtr& encoderPosition)
   ROS_INFO("controller_recieves_encoder_data: %d", encoder_msg.data)
 }
 
+void setpointCall_back(const std_msgs::Int32::ConstPtr& setpointValue)
+{
+  std_msgs::Int32 setpoint
+  setpoint.data=setpointValue->data;
+  ROS_INFO("controller_recieves_setpoint_data: %d", setpoint.data)
+}
+
 int main(int argc, char** argv)
 {
   PD_Controller myPD (10,1); //Creating an object with KP and KD values
   myPD.SetOutputRange(3,0); //Setting max and min signal values
-  myPD.Set_Setpoint(1000); //Setting setpoint
+  myPD.Set_Setpoint(1000);//Setting setpoint
   //******************************************************************************
 
   //Ros code
@@ -120,14 +128,15 @@ int main(int argc, char** argv)
 
   // Subscribers and publishers
 
-    ros::Subscriber encoder_sub = controller_node.subscribe<std_msgs::Int32>("chatter",1000,encoderCall_back);
-    ros::Publisher controller_pub = controller_node.advertise<std_msgs::Int32>("controller", 1000);
+    ros::Subscriber encoder_sub = controller_node.subscribe<std_msgs::Int32>("chatter",100,encoderCall_back);
+    ros::Subscribe setpoint_sub = controller_node.subscribe<std_msgs::Int32>("setpoint",100,setpointCall_back);
+    ros::Publisher controller_pub = controller_node.advertise<std_msgs::Int32>("controller", 100);
     ros::Rate loop_rate(100);
 
   int count = 0;
   while (ros::ok())
   {
-    myPD.getControllValue(setpoinValue, encoderPosition);
+    myPD.getControllValue(setpoint, encoder);
     myPD.Update();
 
 
