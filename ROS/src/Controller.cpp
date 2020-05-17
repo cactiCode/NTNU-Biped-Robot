@@ -94,7 +94,7 @@ class PD_Controller
 //Robot operating system
 //********************************************
 // ROS callback function
-void setpointCall_back(const std_msgs::Int32::ConstPtr& encoderPosition)
+void encoderCall_back(const std_msgs::Int32::ConstPtr& encoderPosition)
 {
   std_msgs::Int32 encoder //Topic name
   encoder.data=encoderPosition->data;
